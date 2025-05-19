@@ -1,42 +1,46 @@
 spring:
   application:
     name: LogisticsFuture
+
   datasource:
-    url: jdbc:postgresql://localhost:5433/logistics_future
-    username: postgres
-    password: 1romay@2468
-    odrama driver-class-name: org.postgresql.Driver
+    url: ${DATABASE_URL}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+
   jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
       hibernate:
-        ddl-auto: update
-      show-sql: true
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
   mail:
-      host: smtp.gmail.com
-      port: 587
-      username: honuvorrosemary@gmail.com
-      password: pncihlgnblaouicb
-      properties:
-        mail:
-          smtp:
-            auth: true
-            starttls:
-              enable: true
+    host: ${SMTP_HOST}  # Render SMTP settings
+    port: ${SMTP_PORT}
+    username: ${SMTP_USER}
+    password: ${SMTP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
   jwt:
-      secret: "qyZHXv8fHtrAxoINKlp6W911ky6MmYGZ=30emt3bLaTAjs--TnrhWrSfSTCvLZTvcpT5eec=FD1u-mR!kV7xM3uhlsQq/OUjf=KYuOent90hJfmABV6s1iFmUU/g0pO-dYSwWMkB?oFFZMNA0tWplNs0A3l?Bb613PpNM8x5IDgipY=c0AoJZSkvJeS7-BLMP!8LEpTA?9Bfvfs/siXYHlFhDVtq7D4N7sgq3c8Q3gzvtmswUcSIIJeF2tz2TS/U"
-      expiration: 3600000 # 1 hour in ms
-      refresh:
-       expiration: 604800000 # 7 days in ms
-  spring:
-    config:
-      import=optional:classpath:/application:
-        yml:
-  logging:
-        level:
-           org:
-             springframework:
-                           web: DEBUG
-             hibernate:
-                  SQL: DEBUG
+    secret: ${JWT_SECRET}
+    expiration: ${JWT_EXPIRATION}
+    refresh:
+      expiration: ${JWT_REFRESH_EXPIRATION}
+
+server:
+  port: ${PORT}
+
+spring.config.import: optional:classpath:/application.yml
+
+logging:
+  level:
+    org:
+      springframework:
+        web: ${LOG_LEVEL}

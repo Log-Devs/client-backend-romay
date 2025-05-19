@@ -12,13 +12,13 @@ import java.util.UUID;
 
 @Component
 public class JwtTokenProvider {
-    @Value("${jwt.secret:qyZHXv8fHtrAxoINKlp6W911ky6MmYGZ=30emt3bLaTAjs--TnrhWrSfSTCvLZTvcpT5eec=FD1u-mR!kV7xM3uhlsQq/OUjf=KYuOent90hJfmABV6s1iFmUU/g0pO-dYSwWMkB?oFFZMNA0tWplNs0A3l?Bb613PpNM8x5IDgipY=c0AoJZSkvJeS7-BLMP!8LEpTA?9Bfvfs/siXYHlFhDVtq7D4N7sgq3c8Q3gzvtmswUcSIIJeF2tz2TS/U}")
+    @Value("${jwt.secret}")
     private String secret;
 
-    @Value("${jwt.expiration:3600000}")
+    @Value("${jwt.expiration}")
     private long accessTokenExpiration;
 
-    @Value("${jwt.refresh.expiration:604800000}")
+    @Value("${jwt.refresh.expiration}")
     private long refreshTokenExpiration;
 
     public String generateToken(UUID userId, String email) {
