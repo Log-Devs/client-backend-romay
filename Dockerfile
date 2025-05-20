@@ -4,18 +4,21 @@ FROM eclipse-temurin:17
 # Set working directory inside the container
 WORKDIR /app
 
-# Copy the Maven wrapper script separately first to ensure permissions
+# Copy only the Maven wrapper first, so we can fix permissions before the full project copy
 COPY mvnw ./
-COPY mvnw.cmd ./
+COPY mvnw mvnw.cmd ./
 
-# Ensure `mvnw` has execution permissions before copying other files
-RUN chmod +x mvnw mvnw.cmd
+# Ensure the Maven wrapper has execution permissions before copying project files
+RUN chmod +x mvnw mvnw.cmd;
 
-# Copy the rest of the project files AFTER setting permissions
+# Copy the rest of the project files after setting permissions
 COPY . .
 
+# Ensure execution permissions before running Maven
+RUN chmod +x ./mvnw
+
 # Run Maven build without tests
-RUN bash -c "./mvnw clean install -DskipTests"
+RUN ./mvnw clean install -DskipTests
 
 # Start the Spring Boot application
 CMD ["./mvnw", "spring-boot:run"]
