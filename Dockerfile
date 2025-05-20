@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy project files
 COPY . .
 
+# Run Maven build without tests
+RUN ./mvnw clean install -DskipTests
+
 # Ensure `mvnw` has execution permissions before running it
 RUN chmod +x mvnw
 
