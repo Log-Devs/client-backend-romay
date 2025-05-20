@@ -1,13 +1,16 @@
 # Use Java 17 runtime
-FROM eclipse-temurin:21
+FROM eclipse-temurin:17
 
-# Set working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy all project files to the container
+# Copy project files
 COPY . .
 
-# Run Maven build inside the container
+# Ensure `mvnw` has execution permissions before running it
+RUN chmod +x mvnw
+
+# Run Maven build
 RUN ./mvnw clean install
 
 # Start the Spring Boot application
