@@ -24,7 +24,6 @@ public class DatabaseConfig {
 
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
-        // Use 5432 as the default port if none is specified
         String port = dbUri.getPort() == -1 ? "5432" : String.valueOf(dbUri.getPort());
         String jdbcUrl = "jdbc:postgresql://" + dbUri.getHost() + ":" + port + dbUri.getPath() + "?sslmode=require";
 
