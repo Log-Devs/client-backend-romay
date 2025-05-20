@@ -3,21 +3,16 @@ spring:
     name: LogisticsFuture
 
   datasource:
-    url: ${DATABASE_URL}
     driver-class-name: org.postgresql.Driver
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+
 
   mail:
-    host: ${SMTP_HOST}  # Render SMTP settings
+    host: ${SMTP_HOST}
     port: ${SMTP_PORT}
     username: ${SMTP_USER}
     password: ${SMTP_PASSWORD}
@@ -35,7 +30,7 @@ spring:
       expiration: ${JWT_REFRESH_EXPIRATION}
 
 server:
-  port: ${PORT}
+  port: ${PORT:2025}
 
 spring.config.import: optional:classpath:/application.yml
 
